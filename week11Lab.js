@@ -113,7 +113,7 @@ $.get(CATS_API_URL, (data)=> {
 	let JOD_API_URL = 'https://official-joke-api.appspot.com/random_joke';  // Q4 Step 1
 
 	$.get(JOD_API_URL, (jodData) => {
-		console.log(jodData);			// Q4 Step 2
+		console.log("Job Data:",jodData);			// Q4 Step 2
 	
 		$('.jokes').prepend(`<p> ${jodData.setup} </p>`);		// Q4 Step 3
 		$('.jokes').append(`<p> ${jodData.punchline} </p>`);		// Q4 Step 4
@@ -198,14 +198,16 @@ $(".test").on("click", function(){
 	let fname = $('#firstname').val();
 	let lname = $('#lastname').val();
 	let grade = $('#grade').val();
+
+	//Turns the data into a stringy before sending it through the API
+	// Required Michael Varnell & Max Cox to determine I needed stringify
+	let newData = JSON.stringify({ 
+		"firstname": fname,
+		"lastname": lname,
+		"grade": grade    
+})
 	
-	$.post("http://localhost:3000/gradebook", 
-			{ 
-					"firstname": fname,
-					"lastname": lname,
-					"grade": grade    
-			}
-	);
+	$.post("http://localhost:3000/gradebook", newData);
 
 });
 /*
@@ -220,17 +222,17 @@ $(".test").on("click", function(){
 		let fname = $('#firstname').val();
 		let lname = $('#lastname').val();
 		let grade = $('#grade').val();
+
+		let stringData = JSON.stringify({ 
+			"firstname": fname,
+			"lastname": lname,
+			"grade": grade    
+	})
 	
-		$.post("http://localhost:3000/gradebook", 
-			{ 
-					"firstname": fname,
-					"lastname": lname,
-					"grade": grade    
-			}
-			);
+		$.post("http://localhost:3000/gradebook", stringData);
 	})
 
-	console.log('Q6 In Progress ... Getting an "Internal Server Error - 500" ');
+	console.log('Q6 Completed - with Michael V n Matthew Cs help ');
 
 	console.log('--------  Bob is Finished! ---------');
 /*--------------------------------------------------*/
