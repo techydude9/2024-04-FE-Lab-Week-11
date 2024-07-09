@@ -2,6 +2,8 @@
    Author:  Promineo Tech Academic Team
    Subject:  JQuery and AJAX Lab
    Front End Technologies Lab 11 - JQuery and AJAX (Questions)
+
+   July 8, 2024 - Bob Ruzga Lab 11 Solutions
 */
 /* ----------------------------------------------------- */
 /* 
@@ -38,14 +40,17 @@
 	* 
 	* ↓ YOUR CODE HERE ↓ */
 
+// Q1 Step 1
+	function replaceTextInDiv() {
+		let inValue = $('#input-value');	//Q2 Step 2
+		let divValue = $('.put-here');
+		// console.log(inValue.val());  // For debugging only
 
+		divValue.text(inValue.val());
+		inValue.val("");				// Q1 Step 3
+		}
 
-
-
-
-
-
-
+		console.log('Q1 Successfully completed');
 
 /*------------------------------------------------*/
 // Question 2: Before and After 
@@ -57,14 +62,13 @@
 	* 
 	* ↓ YOUR CODE HERE ↓ */
 
+	// Q2 Step 1
+		let currDiv = $('.dog');
 
-	
+		currDiv.before("<div><img src='images/fish.png' width='200'></div>");		//Q2 Step 2
+		currDiv.after("<div><img src='images/cat.png' width='200'></div>");		//Q2 Step 3
 
-
-
-
-
-
+		console.log('Q2 Success!');
 /*-------------------------------------------------*/
 // Question 3: Remove 
  
@@ -75,12 +79,9 @@
 	*
 	* ↓ YOUR CODE HERE ↓ */
 
-
-
-
+	$('#lorem2').remove();
 	
-
-
+	console.log('Q3 Success!');
 
 /*-------------------------------------------------*/
 // Question 4: AJAX with JQuery 
@@ -108,14 +109,17 @@ $.get(CATS_API_URL, (data)=> {
  	* Step 4: Print the joke punchline to the DOM by appending it as a PARAGRAPH to the DIV with a class name of "jokes". Save your changes. (See documentation: https://api.jquery.com/append/)
  	* 
  	* 
- 	* ↓ YOUR CODE HERE ↓ */
+ 	* ↓ YOUR CODE HERE ↓ */  
+	let JOD_API_URL = 'https://official-joke-api.appspot.com/random_joke';  // Q4 Step 1
 
+	$.get(JOD_API_URL, (jodData) => {
+		console.log(jodData);			// Q4 Step 2
+	
+		$('.jokes').prepend(`<p> ${jodData.setup} </p>`);		// Q4 Step 3
+		$('.jokes').append(`<p> ${jodData.punchline} </p>`);		// Q4 Step 4
+	})
 
-
-
-
-
-
+		 console.log('Q4 Success'); 
 
 /*--------------------------------------------------*/
 
@@ -165,15 +169,23 @@ $.get(CATS_API_URL, (data)=> {
 	* Step 6: Choose a different student Id and make another GET call that will print that  students data to the DOM like in Step 5 and 6, but this time use the DIV with a class name of "new".
 	* 
 	*
-	* ↓ YOUR CODE HERE ↓ */
+	* ↓ YOUR CODE HERE ↓ */ 
+	const FAKE_JSON_URL = 'http://localhost:3000/gradebook';  //Q5 Step 3
 
+	$.get(FAKE_JSON_URL, (q5Data) => {
+		console.log(q5Data);			// Q5 Step 3
+	})
 
-	
-
-
-
-
-
+	$.get(FAKE_JSON_URL+'/7', (q5Data) => {
+			console.log(q5Data);	// Q5 Step 4
+			$('.result').append(`<p>${q5Data.firstname}  ${q5Data.lastname}, Grade:  ${q5Data.grade}%</p>`);	// Q5 Step 5
+	})
+									
+	$.get(FAKE_JSON_URL+'/19', (q5Data) => {
+		console.log(q5Data);	// Q5 Step 6
+		$('.new').append(`<p>${q5Data.firstname}  ${q5Data.lastname}, Grade:  ${q5Data.grade}%</p>`);	// Q5 Step 6
+	})		// NOTE TO SELF: instead of .append I could have used .text and not included the <p> and this would have inserted the text between the <div></div> for .new
+	 console.log('Q5 Success!'); 
 
 /*--------------------------------------------------*/
 // Question 6: POST 
@@ -204,12 +216,21 @@ $(".test").on("click", function(){
 	*
 	* ↓ YOUR CODE HERE ↓ */
 
+	$(".postBtn").on("click", function() {
+		let fname = $('#firstname').val();
+		let lname = $('#lastname').val();
+		let grade = $('#grade').val();
+	
+		$.post("http://localhost:3000/gradebook", 
+			{ 
+					"firstname": fname,
+					"lastname": lname,
+					"grade": grade    
+			}
+			);
+	})
 
+	console.log('Q6 In Progress ... Getting an "Internal Server Error - 500" ');
 
-
-
-
-
-
-
+	console.log('--------  Bob is Finished! ---------');
 /*--------------------------------------------------*/
